@@ -11,6 +11,8 @@ export default function Layout({children}) {
   const {user}  = useSelector((state) => {
     return (state.user)
   });
+
+  console.log(user?.notification.length)
 //  Logout functio
 
 const handleLogout= ()=>{
@@ -51,8 +53,8 @@ const handleLogout= ()=>{
 
             <div className="content">
                 <div className="header">
-                  <div className="header-content">
-                  <Badge count={user&& user.notification.length}>
+                  <div className="header-content"  style= {{cursor: "pointer"}}>
+                  <Badge count={user&& user.notification.length} onClick={()=> {navigate('/notifications')}}>
                   <i className='fa-solid fa-bell'></i>
                      </Badge>
                    
