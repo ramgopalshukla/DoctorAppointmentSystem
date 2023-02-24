@@ -26,8 +26,8 @@ const userSchema = new mongoose.Schema({
      },
 
      isDoctor:{
-      type: Array,
-      default:[]
+      type: Boolean,
+      default:false
      },
 
      notification: {
@@ -47,4 +47,4 @@ const userSchema = new mongoose.Schema({
 const userModel= mongoose.model('users', userSchema)
 
 
-module.exports= userModel
+module.exports= userModel;

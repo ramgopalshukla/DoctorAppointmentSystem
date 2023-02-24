@@ -22,7 +22,7 @@ app.use(cors())
 // middlewares
 
 app.use('/api/v1/user',require('./routes/userroutes'));
-app.use('/',require('./routes/reciperoute'));
+
 
 
 
