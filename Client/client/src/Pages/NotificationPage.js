@@ -8,19 +8,43 @@ import { useNavigate } from "react-router-dom";
 
 export default function NotificationPage() {
   const dispatch = useDispatch();
-  const navigate= useNavigate();
+  const navigate = useNavigate();
+
   const { user } = useSelector((state) => {
-    return state.user;
+    return (state.user);
   });
 
   console.log(user?.notification);
+  console.log(user?.seennotification);
 
-  const handleDeleteAllread = () => {};
+  const handleDeleteAllread =async () => {
+
+  try{
+    dispatch(showLoading());
+    
+    const res= await axios.post('/api/v1/user/delete-all-notification', {userId: user._id}, {
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    dispatch(hideLoading())
+    if(res.data.success){
+        message.success(res.data.message)
+    }else{
+        message.error("something went wrong")
+    }
+  }catch(error){
+    console.log(error);
+    message.error("something went wrong in notification")
+  }
+
+
+  };
   const handleMarkAllRead = async () => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        "/api/v1/user/get-all-notofication",
+        "/api/v1/user/get-all-notification",
         {
           userId: user._id,
         },
@@ -30,21 +54,20 @@ export default function NotificationPage() {
           },
         }
       );
-      console.log(res)
-
+      console.log(res);
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
       } else {
         message.error(res.data.massage);
       }
-    } catch(error) {
-        dispatch(hideLoading())
-      console.log(error)
-      message.error("something went wrong")
-
+    } catch (error) {
+      dispatch(hideLoading());
+      console.log(error);
+      message.error("something went wrong");
     }
   };
+
   return (
     <>
       <Layout>
@@ -62,22 +85,35 @@ export default function NotificationPage() {
             </div>
             {user?.notification.map((item) => {
               return (
-                <div
-                  className="card"
-             
-                  style={{ cursor: "pointer" }}
-                >
-                  <div className="card-text"     onClick={()=>navigate(item.onclickPath)}>{item.message}</div>
+                <div className="card" style={{ cursor: "pointer" }}>
+                  <div
+                    className="card-text"
+                    onClick={() => navigate(item.onclickPath)}
+                  >
+                    {item.message}
+                  </div>
                 </div>
               );
             })}
           </Tabs.TabPane>
           <Tabs.TabPane tab="Read" key={1}>
-            <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-end" style={{cursor:"pointer"}}>
               <h4 className="p-2" onClick={handleDeleteAllread}>
                 Delete All Read
               </h4>
             </div>
+            {user?.seennotification.map((item) => {
+              return (
+                <div className="card" style={{ cursor: "pointer" }}>
+                  <div
+                    className="card-text"
+                    onClick={() => navigate(item.onclickPath)}
+                  >
+                    {item.message}
+                  </div>
+                </div>
+              );
+            })}
           </Tabs.TabPane>
         </Tabs>
       </Layout>

@@ -29,6 +29,7 @@ export default function Proctectedroute({ children }) {
               }
             );
           
+            
       dispatch(hideLoading());
       console.log(res);
       if (res.data.success) {
@@ -50,5 +51,6 @@ export default function Proctectedroute({ children }) {
     return children;
   } else {
     return <Navigate to="/login" />;
+
   }
 }

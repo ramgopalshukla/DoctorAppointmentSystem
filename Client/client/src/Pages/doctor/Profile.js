@@ -1,26 +1,30 @@
-import React from "react";
-import Layout from "../Components/Layout";
+import React, { useEffect, useState } from "react";
+import Layout from "../../Components/Layout";
+import { useParams } from "react-router-dom";
 import { Form, Row, Col, Input, TimePicker, RangePicker, message } from "antd";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { showLoading, hideLoading } from "./Redux/features/alertSlice";
-import axios from "axios";
-import moment from 'moment'
-
-export default function ApplyDoctor() {
+import { showLoading, hideLoading } from "../Redux/features/alertSlice";
+import moment from 'moment';
+const Profile = () => {
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const { user } = useSelector((state) => {
-    return state.user;
-  });
+ 
+  const [doctor, setdoctor] = useState(null);
+  const params = useParams();
+  // getDoc Details
+
+  //   handle form
   const handleFinish = async (values) => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        "/api/v1/user/apply-doctor",
-        { ...values, userId: user._id,  timing:[
+        "/api/v1/doctor/updateProfile",
+        {...values, userId: user._id , timing:[
             moment(values.timing[0]).format('HH:mm'),
             moment(values.timing[1]).format('HH:mm') 
         ]},
@@ -30,15 +34,13 @@ export default function ApplyDoctor() {
           },
         }
       );
-      
-      console.log(res);
 
       dispatch(hideLoading());
       if (res.data.success) {
-        message.success(res.data.success);
-        navigate('/');
-      }else{
-        message.error(res.data.success)
+        message.success(res.data.message);
+        navigate("/");
+      } else {
+        message.error(res.data.success);
       }
     } catch (error) {
       dispatch(hideLoading());
@@ -46,10 +48,47 @@ export default function ApplyDoctor() {
       message.error("Something Went Wrong");
     }
   };
+
+  const getDoctorInfo = async () => {
+     console.log("running")
+
+    try {
+      const res = await  axios.post(
+        "/api/v1/doctor/getDoctorInfo",
+        { userId: params.id },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(res)
+      if (res.data.success) {
+        
+        setdoctor(res.data.data);
+        console.log(res.data.data)
+        console.log()
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+console.log(doctor);
+
+  useEffect(() => {
+    getDoctorInfo();
+  }, []);
   return (
     <Layout>
-      <h1 className="text-center">Apply Doctor</h1>
-      <Form layout="vertical" onFinish={handleFinish} className="m-3">
+      <h1>Manage Profile</h1>
+     {doctor && (<Form layout="vertical" onFinish={handleFinish} className="m-3" initialValues={{
+        ...doctor,
+        timing:[
+            moment(doctor.timing[0]).format("HH:mm"),
+            moment(doctor.timing[1]).format("HH:mm")
+        ]
+     }
+    }>
         <h4 className="">Personal Details :</h4>
         <Row gutter={20}>
           <Col xs={24} md={24} lg={8}>
@@ -153,11 +192,15 @@ export default function ApplyDoctor() {
           <Col xs={24} md={24} lg={8}></Col>
           <Col xs={24} md={24} lg={8}>
             <button className="btn btn-primary form-btn" type="submit">
-              Submit
+              Update
             </button>
           </Col>
         </Row>
-      </Form>
+      </Form>)
+
+     } 
     </Layout>
   );
-}
+};
+
+export default Profile;
