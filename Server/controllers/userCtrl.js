@@ -128,7 +128,7 @@ const applyDoctorController = async (req, res) => {
   }
 };
 
-const getAllnotificationController = async () => {
+const getAllnotificationController = async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.body.userId });
 
@@ -147,11 +147,62 @@ const getAllnotificationController = async () => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "not getting all notification",
+      error,
+      message: `something went wrong ${error.message}`,
+    });
+  }
+};
+
+const deleteAllController = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.body.userId });
+
+    user.notification = [];
+
+    user.seennotification = [];
+
+    const updateduser = await user.save();
+
+    updateduser.password = undefined;
+
+    res.status(200).send({
+      success: true,
+      message: "Notification Delete successsfully",
+      data: updateduser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "unable to delete all notifications",
       error,
     });
   }
 };
+
+// getAllDoctorController
+
+
+const getAllDoctorController = async (req, res)=>{
+
+  try{
+  
+    const doctors= await doctorModel.find({})
+
+    res.status(200).send({
+      success: true,
+      message: "Doctors Lists Fetched Success",
+      data: doctors
+    })
+  } catch(error){
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error While Fething Doctor"
+    })
+  }
+}
 
 module.exports = {
   logiController,
@@ -159,4 +210,6 @@ module.exports = {
   authctrl,
   applyDoctorController,
   getAllnotificationController,
+  deleteAllController,
+  getAllDoctorController
 };

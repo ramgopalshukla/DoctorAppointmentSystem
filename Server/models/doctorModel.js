@@ -49,7 +49,7 @@ const mongoose = require("mongoose");
         default: "pending"
     },
     timing: {
-      type: Object,
+      type: [],
       required: [true, "work timing is required"],
     },
   },

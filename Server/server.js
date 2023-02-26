@@ -2,9 +2,9 @@ const express = require("express");
 const colors = require("colors");
 const moragan = require("morgan");
 const dotenv = require("dotenv");
-const cors = require('cors');
+const cors = require("cors");
 // const router= require()
-const connectDB = require("./config/db")
+const connectDB = require("./config/db");
 
 dotenv.config();
 // rest object
@@ -12,25 +12,17 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(moragan("dev"));
-app.use(cors())
-
-
-
-
-
+app.use(cors());
 
 // middlewares
 
-app.use('/api/v1/user',require('./routes/userroutes'));
-
-
-
-
-
+app.use("/api/v1/user", require("./routes/userroutes"));
+app.use("/api/v1/admin", require("./routes/adminroutes"));
+app.use("/api/v1/doctor", require("./routes/docterroutes"));
 
 // listen port
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`server running on http://localhost:${port}`.bgMagenta.white);
-    connectDB();
-})
+  console.log(`server running on http://localhost:${port}`.bgMagenta.white);
+  connectDB();
+});
