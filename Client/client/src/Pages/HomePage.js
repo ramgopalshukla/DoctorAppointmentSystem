@@ -20,7 +20,7 @@ export default function HomePage() {
         }
       );
       if (res.data.success) {
-        console.log(res.data.data)
+        console.log(res.data.data);
         setdoctors(res.data.data);
       }
     } catch (error) {
@@ -35,7 +35,7 @@ export default function HomePage() {
     <Layout>
       <h1 className="text-center">Home Page</h1>
       <Row>
- <DoctorList doctors={doctors}/>
+        <DoctorList doctors={doctors} />
       </Row>
     </Layout>
   );

@@ -186,7 +186,7 @@ console.log(doctor);
           </Col>
           <Col xs={24} md={24} lg={8}>
             <Form.Item label="Timing" name="timing" required>
-              <TimePicker.RangePicker format="HH:mm" />
+              {/* <TimePicker.RangePicker format="HH:mm" /> */}
             </Form.Item>
           </Col>
           <Col xs={24} md={24} lg={8}></Col>
