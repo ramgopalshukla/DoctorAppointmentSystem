@@ -44,7 +44,7 @@ const updateProfileController = async (req, res) => {
 
 const getDoctorByIdController = async (req, res) => {
   try {
-    const doctor = doctorModel.find({ _id: req.body.doctorId });
+    const doctor = await doctorModel.findOne({ _id:req.body.doctorId });
 
     res.status(200).send({
       success: true,
@@ -61,8 +61,31 @@ const getDoctorByIdController = async (req, res) => {
   }
 };
 
+const doctorAppointmentController= async (req, res)=>{
+        
+
+  try{
+
+
+  }
+
+  catch(error){
+    error, 
+    res.status(500).send({
+      success: false,
+      message:"not gettting appointmaents in doctor appintment page",
+      error,
+    })
+
+  }
+
+
+
+}
+
 module.exports = {
   getDoctorController,
   updateProfileController,
   getDoctorByIdController,
+  doctorAppointmentController
 };

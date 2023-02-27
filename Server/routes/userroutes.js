@@ -1,4 +1,4 @@
- const { logiController,registrationController , authctrl, applyDoctorController, getAllnotificationController, deleteAllController, getAllDoctorController} = require("../controllers/userCtrl");
+ const { logiController,registrationController , authctrl, applyDoctorController, getAllnotificationController, deleteAllController, getAllDoctorController, bookAppointmentController, bookingAvailibilityController, userAppointmentController} = require("../controllers/userCtrl");
   const authmiddleware= require('../middlewares/authmiddlewares');
 
  const express= require('express');
@@ -16,7 +16,16 @@ router.post("/get-all-notification", authmiddleware, getAllnotificationControlle
 router.post("/delete-all-notification", authmiddleware, deleteAllController);
 router.get("/getAllDoctors", authmiddleware, getAllDoctorController);
 
+router.post('/book-appointment', authmiddleware, bookAppointmentController)
 
+// booking availability
+
+router.post('/booking-availibility', authmiddleware, bookingAvailibilityController)
+
+
+// appoointment list
+
+router.get('/user-appointments', authmiddleware, userAppointmentController)
 // post account statys
  module.exports= router;
 
