@@ -33,9 +33,9 @@ const logiController = async (req, res) => {
 
     res.status(200).send({ message: "login success", success: true, token });
   } catch (error) {
-    console.log(error);
-    res
-      .status(500)
+  
+   
+    res.status(500)
       .send({ message: `error in logic controll ${error.message}` });
   }
 };
@@ -61,10 +61,10 @@ const registrationController = async (req, res) => {
     await newuser.save();
     res.status(201).send({ message: "registration succesfull", success: true });
   } catch (err) {
-    console.log(err);
+   
     res
       .status(500)
-      .send({ success: false, message: `Register Controller ${err.message}` });
+      .send({ success: false, message: `Register Controller ${err.message}`, err });
   }
 };
 
@@ -84,11 +84,12 @@ const authctrl = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+
 
     res.status(500).send({
       success: false,
-      message: `something went wrong  ${err.message}`,
+      message: `something went wrong  ${error.message}`,
+      error,
     });
   }
 };
@@ -120,7 +121,7 @@ const applyDoctorController = async (req, res) => {
       message: "Doctor Account Applied SAuccesfully",
     });
   } catch (error) {
-    console.log(error);
+  
 
     res.status(500).send({
       success: false,
@@ -146,7 +147,7 @@ const getAllnotificationController = async (req, res) => {
       data: updatedUser,
     });
   } catch (error) {
-    console.log(error);
+    
     res.status(500).send({
       success: false,
       error,
@@ -173,7 +174,7 @@ const deleteAllController = async (req, res) => {
       data: updateduser,
     });
   } catch (error) {
-    console.log(error);
+  
     res.status(500).send({
       success: false,
       message: "unable to delete all notifications",
@@ -194,7 +195,7 @@ const getAllDoctorController = async (req, res) => {
       data: doctors,
     });
   } catch (error) {
-    console.log(error);
+  
     res.status(500).send({
       success: false,
       error,
@@ -229,7 +230,7 @@ const bookAppointmentController = async (req, res) => {
       message: "Appointment Book successfully"
     })
   } catch (error) {
-    console.log(error);
+  
     res.status(500).send({
       success: false,
       error,
@@ -274,7 +275,7 @@ const bookingAvailibilityController= async (req, res)=>{
     }
    }
    catch(error){
-    console.log(error);
+  
     res.status(500).send({
       success: false,
       error,
@@ -298,7 +299,7 @@ const userAppointmentController=async (req, res)=>{
 
   } catch(error){
   error,
-  console.log(error),
+
   res.status(500).send({
     success:false,
     error,

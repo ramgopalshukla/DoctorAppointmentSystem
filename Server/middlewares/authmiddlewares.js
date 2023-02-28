@@ -16,11 +16,11 @@ const authenticate = async (req, res, next) => {
       }
     });
   } catch (error) {
-    console.log(error);
+   
 
     res.status(401).send({
       message: "Auth failed",
-
+     error,
       success: false,
     });
   }

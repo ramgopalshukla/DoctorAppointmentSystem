@@ -1,4 +1,6 @@
+const appointmodel = require("../models/appointmentmodel");
 const doctorModel = require("../models/doctorModel");
+const userModel = require('../models/userModel')
 
 const getDoctorController = async (req, res) => {
   try {
@@ -9,7 +11,7 @@ const getDoctorController = async (req, res) => {
       data: doctor,
     });
   } catch (error) {
-    console.log(error);
+    
     res.status(500).send({
       success: false,
       error,
@@ -33,7 +35,7 @@ const updateProfileController = async (req, res) => {
       data: doctor,
     });
   } catch (error) {
-    console.log(error);
+  
     res.status(500).send({
       success: false,
       message: "Doctor Profile Update issue",
@@ -66,6 +68,17 @@ const doctorAppointmentController= async (req, res)=>{
 
   try{
 
+    const doctor= await doctorModel.findOne({userId: req.body.userId})
+
+    const appointments= await appointmodel.find({doctorId: doctor._id})
+ 
+
+    res.status(200).send({
+      success: true,
+      message: "Doctor Appointment fetch Succesfully",
+      data: appointments
+    })
+    
 
   }
 
@@ -73,9 +86,10 @@ const doctorAppointmentController= async (req, res)=>{
     error, 
     res.status(500).send({
       success: false,
-      message:"not gettting appointmaents in doctor appintment page",
-      error,
-    })
+ 
+      message:"not gettting appointments in doctor appointment page",
+    
+    });
 
   }
 
@@ -83,9 +97,50 @@ const doctorAppointmentController= async (req, res)=>{
 
 }
 
+const updateStatusController= async (req, res)=>{
+
+     try{
+
+   const {appointmentsId, status}= req.body
+
+
+   const appointment= await appointmodel.findByIdAndUpdate(appointmentsId, {status})
+
+
+   const user= await userModel.findOne({_id: appointment.userId})
+    const notification= user.notification;
+    notification.push({
+    type: "Status updated",
+    message:`Your appointment has been updated ${status}`,
+    onClickPath: "/doctor-appointments",
+   });
+
+   await user.save();
+  res.status(200).send({
+    success: true,
+    message:"Appointment Status Updated",
+  })
+
+
+
+
+
+     } catch(error){
+   
+      res.status(500).send({
+        success: false,
+        error,
+
+        message: "not updating status", 
+  
+      })
+     }
+}
+
 module.exports = {
   getDoctorController,
   updateProfileController,
   getDoctorByIdController,
-  doctorAppointmentController
+  doctorAppointmentController,
+  updateStatusController
 };
