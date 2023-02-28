@@ -10,7 +10,7 @@ export default function Proctectedroute({ children }) {
   const user = useSelector((state) => {
     return state.user;
   });
-  console.log(user);
+
 
  useEffect(() => {
     getUser();
@@ -31,7 +31,7 @@ export default function Proctectedroute({ children }) {
           
             
       dispatch(hideLoading());
-      console.log(res);
+    
       if (res.data.success) {
         dispatch(setUser(res.data.data));
       } else {
@@ -41,7 +41,7 @@ export default function Proctectedroute({ children }) {
     } catch (error) {
       dispatch(hideLoading());
       localStorage.clear();
-      console.log(error);
+    
     }
   };
 

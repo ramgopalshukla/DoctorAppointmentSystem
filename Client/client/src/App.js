@@ -13,13 +13,14 @@ import Doctors from "./Pages/admin/Doctors";
 import Profile from "./Pages/doctor/Profile";
 import BookingPage from "./Pages/BookingPage";
 import Appointments from "./Pages/Appointments";
+import DoctorAppointment from "./Pages/doctor/DoctorAppointment";
 
 function App() {
   const { loading } = useSelector((state) => {
     return state.alerts;
   });
 
-  console.log(loading);
+ 
   return (
     <>
       <BrowserRouter>
@@ -89,6 +90,15 @@ function App() {
             element={
               <Proctectedroute>
                 <Appointments/>
+              </Proctectedroute>
+            }
+          ></Route>
+
+          <Route
+            path="/doctor-appointments"
+            element={
+              <Proctectedroute>
+                <DoctorAppointment/>
               </Proctectedroute>
             }
           ></Route>

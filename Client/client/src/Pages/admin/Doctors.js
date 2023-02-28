@@ -20,9 +20,9 @@ export default function Doctors() {
       if (users.data.success) {
         setdata(users.data.data);
       }
-      console.log(users.data.data);
+  
     } catch (error) {
-      console.log(error);
+    console.log(error)
     }
   };
 

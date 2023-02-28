@@ -50,7 +50,7 @@ const Profile = () => {
   };
 
   const getDoctorInfo = async () => {
-     console.log("running")
+  
 
     try {
       const res = await  axios.post(
@@ -62,18 +62,18 @@ const Profile = () => {
           },
         }
       );
-      console.log(res)
+
       if (res.data.success) {
         
         setdoctor(res.data.data);
-        console.log(res.data.data)
-        console.log()
+
+
       }
     } catch (error) {
       console.log(error);
     }
   };
-console.log(doctor);
+
 
   useEffect(() => {
     getDoctorInfo();

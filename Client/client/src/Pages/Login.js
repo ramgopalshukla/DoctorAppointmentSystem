@@ -17,7 +17,7 @@ const dispatch= useDispatch();
       dispatch(hideLoading());
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
-        console.log(res.data.token);
+  
         message.success("Login successfully");
         navigate("/");
       } else {

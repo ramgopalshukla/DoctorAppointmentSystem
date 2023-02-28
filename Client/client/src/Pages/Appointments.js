@@ -18,7 +18,7 @@ const Appointments = () => {
 
       if (res.data.success) {
         setAppointment(res.data.data);
-        console.log(res.data.data)
+     
       }
     } catch (error) {
       console.log(error);

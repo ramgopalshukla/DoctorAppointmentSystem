@@ -33,7 +33,7 @@ const BookingPage = () => {
       );
       if (res.data.success) {
         setdoctor(res.data.data);
-        console.log(res.data.data)
+      
       }
     } catch (error) {
       console.log(error);
@@ -42,7 +42,9 @@ const BookingPage = () => {
 
   useEffect(() => {
     getUserData();
+    
     // eslint-disabled-next-line
+
   }, []);
 
 
@@ -101,7 +103,7 @@ try{
 
     if(res.data.success){
    
-      console.log(isAvailable)
+
       message.success(res.data.message)
     }
 

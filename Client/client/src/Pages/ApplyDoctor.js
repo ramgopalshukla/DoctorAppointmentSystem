@@ -31,7 +31,7 @@ export default function ApplyDoctor() {
         }
       );
       
-      console.log(res);
+    
 
       dispatch(hideLoading());
       if (res.data.success) {

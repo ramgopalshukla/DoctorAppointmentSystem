@@ -14,8 +14,7 @@ export default function NotificationPage() {
     return (state.user);
   });
 
-  console.log(user?.notification);
-  console.log(user?.seennotification);
+
 
   const handleDeleteAllread =async () => {
 
@@ -30,6 +29,7 @@ export default function NotificationPage() {
     dispatch(hideLoading())
     if(res.data.success){
         message.success(res.data.message)
+        window.location.reload();
     }else{
         message.error("something went wrong")
     }
@@ -54,10 +54,11 @@ export default function NotificationPage() {
           },
         }
       );
-      console.log(res);
+     
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
+        window.location.reload();
       } else {
         message.error(res.data.massage);
       }

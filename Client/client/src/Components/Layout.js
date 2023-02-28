@@ -12,7 +12,7 @@ export default function Layout({ children }) {
     return state.user;
   });
 
-  console.log(user?.notification.length);
+ 
   //  Logout functio
 
   const handleLogout = () => {
@@ -33,7 +33,7 @@ export default function Layout({ children }) {
 
     {
       name: "Appointments",
-      path: "/appointments",
+      path: "/doctor-appointments",
       icon: "fa-solid fa-list",
     },
     {
@@ -50,7 +50,7 @@ export default function Layout({ children }) {
         <div className="layout">
           <div className="sidebar">
             <div className="logo">
-              <h6>DOC APP</h6>
+              <h6>LIVEVAIDYA</h6>
               <hr />
             </div>
             <div className="menu">
@@ -74,7 +74,19 @@ export default function Layout({ children }) {
 
           <div className="content">
             <div className="header">
+             
+        
               <div className="header-content" style={{ cursor: "pointer" }}>
+
+              <div style={{marginRight:"30px"}}>
+              <img src="https://img.freepik.com/premium-vector/doctor-profile-with-medical-service-icon_617655-48.jpg?w=2000" alt="" width="100px" />
+              <img src="https://previews.123rf.com/images/fizkes/fizkes2105/fizkes210500606/168696506-thank-you-doctor-smiling-thankful-mature-sick-man-holding-young-female-medic-nurse-hand.jpg" alt="" width="150px" />
+              <img src="https://previews.123rf.com/images/liudmilachernetska/liudmilachernetska2112/liudmilachernetska211201754/178464949-gynecologist-demonstrating-model-of-female-reproductive-system-to-young-woman-in-clinic.jpg" alt="" width="150px" />
+              <img src="https://previews.123rf.com/images/serezniy/serezniy2101/serezniy210105526/162671057-male-patient-at-urologist-s-office.jpg" alt="" width="150px" />
+              <img src="https://previews.123rf.com/images/liudmilachernetska/liudmilachernetska2112/liudmilachernetska211201754/178464949-gynecologist-demonstrating-model-of-female-reproductive-system-to-young-woman-in-clinic.jpg" alt="" width="150px" />
+              <img src="https://previews.123rf.com/images/vichie81/vichie811911/vichie81191100127/136079244-asian-confidence-doctor-using-digital-tablet-expressing-health-concerns-with-old-elderly-woman.jpg" alt="" width="150px" />
+              <img src="https://previews.123rf.com/images/fizkes/fizkes2012/fizkes201201914/160970111-attentive-young-caucasian-female-doctor-talk-consult-mature-male-patient-in-clinic-caring-woman-gp.jpg" alt="" width="80px" height="100px" />
+              </div>
                 <Badge
                   count={user && user.notification.length}
                   onClick={() => {

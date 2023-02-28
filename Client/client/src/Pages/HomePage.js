@@ -6,7 +6,7 @@ import { Row } from "antd";
 import DoctorList from "../Components/DoctorList";
 
 export default function HomePage() {
-  const [doctors, setdoctors] = useState();
+  const [doctors, setdoctors] = useState([]);
 
   const getUserData = async () => {
     try {
@@ -15,12 +15,12 @@ export default function HomePage() {
 
         {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: `Bearer ${localStorage.getItem('token')}`
           },
         }
       );
       if (res.data.success) {
-        console.log(res.data.data);
+      
         setdoctors(res.data.data);
       }
     } catch (error) {

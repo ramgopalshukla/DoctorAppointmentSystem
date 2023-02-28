@@ -18,7 +18,7 @@ export default function Register() {
         message.success("register Succesfully!");
         navigate("/login");
       } else {
-        console.log("some thiung went wrong");
+      
         message.error(res.data.message);
       }
     } catch (error) {

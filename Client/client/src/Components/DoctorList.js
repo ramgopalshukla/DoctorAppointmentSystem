@@ -5,28 +5,32 @@ const DoctorList = ({doctors}) => {
     const navigate= useNavigate();
   return (
    <>
- {doctors && <div className="card m-2" onClick= {()=> navigate(`/doctors/book-appointment/${doctors[2]._id}`)}  style={{cursor:"pointer"}}>
+ {doctors && doctors.map((doctor)=>{
+    return(
+<div className="card m-2" onClick= {()=> navigate(`/doctors/book-appointment/${doctor._id}`)}  style={{cursor:"pointer"}}>
     <div className="card-header">
-        Dr. {doctors[2].firstName}  {doctors[2].lastName}
+        Dr. {doctor?.firstName}  {doctor.lastName}
     </div>
 
     <div className="card-body">
         <p>
-            <b>Specialization</b> {doctors[2].specialization}
+            <b>Specialization</b> {doctor?.specialization}
         </p>
         <p>
-            <b>Experience</b> {doctors[2].experience}
+            <b>Experience</b> {doctor?.experience}
         </p>
         <p>
-            <b>Fees Per Cunsaltation</b> {doctors[2].feesPerCunsaltation
+            <b>Fees Per Cunsaltation</b> {doctor.feesPerCunsaltation
 }
         </p>
         <p>
-            <b>Timing</b> {doctors[2].timing[0]} - {doctors[2].timing[1]}
+            <b>Timing</b> {doctor?.timing[0]} - {doctor?.timing[1]}
         </p>
        
     </div>
-   </div>}
+   </div>
+    )
+ })}
    </>
   )
 }
